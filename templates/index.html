@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Hi~ Web</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='style.css')}}">
+</head>
+    <div id="container">
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="#"></a> HOME </li>
+                    <li><a href="#"></a> 로그인 </li>
+                    <li><a href="#"></a> 회원목록 </li>
+                    <li><a href="#"></a> 게시판 </li>
+                </ul>
+            </nav>
+        </header>
+        <section>
+            <h1> 환영합니다! 회원가입형</h1>
+            <img src="{{ url_for('static', filename='coffee-gray.jpg')}}" id="pic">
+        </section>
+    </div>
+    <script src="{{ url_for('static', filename='main_js.js')}}"></script>
+<body>
+
+</body>
+</html>
