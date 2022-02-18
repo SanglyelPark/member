@@ -42,8 +42,8 @@ def select_member():
     sql = "SELECT * FROM member"
     cur.execute(sql)
     rs = cur.fetchall()
-    for i in rs:
-        print(i)
+    # for i in rs:
+    #     print(i)
     conn.close()
 
 # conn = getconn()
