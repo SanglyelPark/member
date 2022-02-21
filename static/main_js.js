@@ -16,3 +16,9 @@ function changePic(){
 function originPic(){
     pic.src = "../static/coffee-gray.jpg";
 }
+
+setInterval(function(){
+        const now = new Date();
+        let watch = now.toLocaleTimeString();
+        document.querySelector("#display").innerHTML = watch;
+     },1000)

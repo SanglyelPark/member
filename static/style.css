@@ -3,10 +3,14 @@
     width: 1000px;
     margin: 0 auto;
 }
+#display{margin: 0 auto;}
+
 header{height: 100px;}
 nav ul{list-style: none; text-align: right;}
-nav ul li{display: inline-block; margin: 10px;
+nav ul li{display: inline-block; margin: 20px;
         border-top: 3px solid #333; padding: 10px;
+        border-bottom: 1px solid #333;
+        border-radius:15%;
         }
 nav ul li a{text-decoration: none; color: #000;}
 nav ul li:hover{background-color: #eee;}
@@ -14,6 +18,7 @@ nav ul li:hover{background-color: #eee;}
 /* index 스타일 */
 section{text-align: center;}
 section h1{font-size: 2em; margin-bottom: 30px;}
+
 
 /* memberlist */
 section table{width: 600px; margin: 0 auto; border-collapse: collapse;}
@@ -30,7 +35,7 @@ section .join ul{list-style: none; padding: 10px;}
 section .join ul li{margin: 20px;}
 section .join ul label{width: 120px; float: left; text-align: right; line-height: 2em;}
 section .join ul input[type='text'], input[type='password']{width: 250px; height: 30px;}
-section .join ul input[type='submit'], input[type='reset']{width: 100px; height: 30px;}
+section .join ul input[type='button'], input[type='reset']{width: 100px; height: 30px;}
 
 /* login 스타일 */
 section .login{width: 450px; margin: 0 auto;}

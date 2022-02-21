@@ -1,14 +1,17 @@
 import sqlite3
 
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 
 app = Flask(__name__)
+
+app.secret_key = "#abcde!"
 
 # db 접속 함수
 def getconn():
     conn = sqlite3.connect("./members.db")
     return conn
-# index
+
+# index 페이지
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -52,12 +55,48 @@ def register():
         cur.execute(sql)
         conn.commit()
         conn.close()
-        return redirect(url_for('memberlist'))
+        return redirect(url_for('memberlist'))  #redirect 페이지 이동
     else:
         return render_template('register.html')
 
 # 로그인 페이지
 @app.route('/login/')
 def login():
-    return render_template('login.html')
+    if request.method == "POST":
+        # 입력된 id 비번을 가져오기
+        id = request.form['mid']
+        pwd = request.form['passwd']
+
+        # db 연동
+        conn = getconn()
+        cur = conn.cursor()
+        sql = "SELECT * FROM member WHERE mid = '%s' AND passwd = '%s'" % (id, pwd)
+        cur.execute(sql)
+
+        rs = cur.fetchone()
+        if rs:
+            session['userID'] = rs[0]
+            return redirect(url_for('index'))
+        else:
+            error = "아이디나 비밀번호를 확인해주세요"
+            return render_template('index.html', error=error)
+    else:
+        return render_template('login.html')
+
+@app.route('/logout/')
+def logout():
+    session.pop("userID")
+    return redirect(url_for('index'))
+
+# 회원 삭제
+@app.route('/member_del/<string:id>/')
+def member_del(id):
+    conn = getconn()
+    cur = conn.cursor()
+    sql = "DELETE FROM member WHERE mid = '%s'" % (id)
+    cur.execute(sql)
+    conn.commit()
+    conn.close()
+    return redirect(url_for('memberlist'))
+
 app.run(debug=True)
