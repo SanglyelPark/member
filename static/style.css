@@ -40,8 +40,26 @@ section .join ul input[type='button'], input[type='reset']{width: 100px; height:
 /* login 스타일 */
 section .login{width: 450px; margin: 0 auto;}
 section .login fieldset{border-radius: 5px;}
+section .login p{color: #f00; padding: 10px }
 section .login ul{list-style: none; padding: 10px;}
 section .login ul li{margin: 10px;}
 section .login ul label{width: 100px; float: left; text-align: right; line-height: 2em;}
 section .login ul input{width: 200px; height: 30px;}
 section .login ul input[type='submit']{width: 100px; height: 30px;}
+
+/* member_edit 스타일 */
+section .tbl_edit{width: 450px;}
+section .tbl_edit td{width: 100px;}
+section .tbl_edit input{width: 250px; height: 30px;}
+section .tbl_edit input[type="submit"]{width: 70px; height: 30px;}
+section .tbl_edit input[type='reset']{width: 70px; height: 30px;}
+
+/* boardlist 스타일 */
+section .btn_write{padding: 10px; text-align: right; margin: 10px 180px;}
+section .btn_write input{width: 100px; height 30px;}
+
+
+/* borad_view 스타일 */
+section .tbl_bo_view{width: 600px;}
+section .tbl_bo_view input{width: 550px; height: 25px;}
+section .tbl_bo_view textarea{width: 550px; height: 25px;}

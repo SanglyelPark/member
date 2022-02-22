@@ -42,8 +42,15 @@ def select_member():
     sql = "SELECT * FROM member"
     cur.execute(sql)
     rs = cur.fetchall()
-    # for i in rs:
-    #     print(i)
+    print(rs)
+    conn.close()
+
+def delete_member():
+    conn = getconn()
+    cur = conn.cursor()
+    sql = "DELETE FROM member WHREE mid = "
+    cur.execute(sql)
+    conn.commit()
     conn.close()
 
 # conn = getconn()

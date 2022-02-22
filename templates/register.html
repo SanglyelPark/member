@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>회원 가입</title>
     <link rel="stylesheet" href="{{ url_for('static',filename='style.css')}}">
-    <script src="{{ url_for('static',filename='checkMember.js')}}"></script>
+    <script src="{{ url_for('static',filename='checkMember.js') }}"></script>
 </head>
 <body>
     <div id="container">
@@ -19,12 +19,12 @@
                         <input type="text" id="mid" name="mid" placeholder="5자까지 입력해 주세요">
                         </li>
                         <li>
-                        <label for="passwd">비밀번호</label>
-                        <input type="text" id="passwd" name="passwd" placeholder="8자만 입력해 주세요">
+                        <label for="passwd1">비밀번호</label>
+                        <input type="text" id="passwd1" name="passwd" placeholder="4~8자만 입력해 주세요">
                         </li>
                         <li>
                         <label for="passwd2">비밀번호 확인</label>
-                        <input type="password" id="passwd2" name="passwd_comfirm" placeholder="4자~8자까지 입력해 주세요">
+                        <input type="password" id="passwd2" name="passwd_confirm" >
                         </li>
                         <li>
                         <label for="name">이름</label>

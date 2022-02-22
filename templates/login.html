@@ -12,6 +12,9 @@
             <h1>로그인</h1>
             <form action="" method="post" class="login">
                 <fieldset>
+                    {% if error %}
+                    <p>{{ error }}</p>
+                    {% endif %}
                     <ul>
                         <li>
                             <label for="mid">아이디</label>
