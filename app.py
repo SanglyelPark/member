@@ -1,16 +1,13 @@
 import sqlite3
 from flask import Flask, render_template, request, redirect, url_for, session
-from tbl_member import select_member
+
+from model.model_member import select_member, getconn
+
 
 
 app = Flask(__name__)
 
 app.secret_key = "#abcde!"
-
-# db 접속 함수
-def getconn():
-    conn = sqlite3.connect("./members.db")
-    return conn
 
 # index 페이지
 @app.route('/')
@@ -20,12 +17,7 @@ def index():
 # 회원 목록
 @app.route('/memberlist/')
 def memberlist():
-    conn = getconn()
-    cur = conn.cursor()
-    sql = "SELECT * FROM member ORDER BY regDate DESC"
-    cur.execute(sql)
-    rs = cur.fetchall()
-    conn.close()
+    rs = select_member()
     return render_template('memberlist.html', rs=rs)
 
 # 회원 상세 페이지
@@ -62,6 +54,7 @@ def register():
         rs = cur.fetchone()
         if rs:
             session['userID'] = rs[0]   # 회원 가입시 세션 발급
+            session['userName'] = rs[2]  # 회원 가입시 세션 발급(이름)
             return redirect(url_for('memberlist'))
         conn.close()
         return redirect(url_for('memberlist'))  #redirect 페이지 이동
@@ -85,6 +78,7 @@ def login():
         conn.close()
         if rs:
             session['userID'] = rs[0]
+            session['userName'] = rs[2]
             return redirect(url_for('index'))
         else:
             error = "아이디나 비밀번호를 확인해주세요"
@@ -94,7 +88,9 @@ def login():
 
 @app.route('/logout/')
 def logout():
-    session.pop("userID")  #세션 삭제
+    # session.pop("userID") #세션 삭제
+    # session.pop("userName")
+    session.clear()
     return redirect(url_for('index'))
 
 # 회원 삭제
@@ -164,11 +160,11 @@ def writing():
         # 데이터를 넘겨 받음
         title = request.form['title']
         content = request.form['content']
-        mid = session.get('userID') # 로그인한 mid(글쓴이)
+        mid = session.get('userName') # 로그인한 mid(글쓴이)
 
         conn = getconn()
         cur = conn.cursor()
-        sql = "INSERT INTO board(title, content, mid) " \
+        sql = "INSERT INTO board (title, content, mid)" \
                 "VALUES ('%s', '%s', '%s')" % (title, content, mid)
         cur.execute(sql)
         conn.commit()
@@ -194,7 +190,7 @@ def board_edit(bno):
         # 데이터 ㅈ너달 받기
         title = request.form['title']
         content = request.form['content']
-        mid = session.get('userID')
+        mid = session.get('userName')
 
         # db 연동
         conn = getconn()
