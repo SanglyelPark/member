@@ -47,7 +47,7 @@ def join_member():
     return rs
 
 def login_member():
-    # 입력된 id 비번을 가져오기
+    # 입력된 id, 비번을 가져오기
     id = request.form['mid']
     pwd = request.form['passwd']
 

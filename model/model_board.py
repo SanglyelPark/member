@@ -2,7 +2,6 @@ from flask import request, session
 
 from model.model_member import getconn
 
-
 def select_board():
     conn = getconn()
     cur = conn.cursor()
@@ -15,12 +14,14 @@ def select_board():
 def select_bo_one(bno):
     conn = getconn()
     cur = conn.cursor()
-    sql = "SELECT * FROM board WHERE bno = '%s'" % (bno)
+    sql = "SELECT * FROM board WHERE bno = '%s' " % (bno)
     cur.execute(sql)
     rs = cur.fetchone()
-    hit = rs[4]
+
+    # hit 1증가 후 sql-> update set
+    hit = rs[4]   #이전 조회수
     hit = hit + 1
-    sql = "UPDATE SET board hit = '%s' WHERE bno = '%s'" % (hit, bno)
+    sql = "UPDATE board SET hit = '%s' WHERE bno = '%s'" % (hit, bno)
     cur.execute(sql)
     conn.commit()
     conn.close()
@@ -33,9 +34,10 @@ def write_board():
     hit = 0
     mid = session.get('userName')  # 로그인한 mid(글쓴이)
 
+    # db 연동 처리
     conn = getconn()
     cur = conn.cursor()
-    sql = "INSERT INTO board (title, content, mid)" \
+    sql = "INSERT INTO board(title, content, hit, mid) " \
           "VALUES ('%s', '%s', '%s', '%s')" % (title, content, hit, mid)
     cur.execute(sql)
     conn.commit()
@@ -59,7 +61,7 @@ def update_board(bno):
     conn = getconn()
     cur = conn.cursor()
     sql = "UPDATE board SET title='%s', content='%s', mid='%s' " \
-          "WHERE bno = '%s'" % (title, content, mid, bno)
+          "WHERE bno='%s'" % (title, content, mid, bno)
     cur.execute(sql)
     conn.commit()
     conn.close()
